@@ -1,0 +1,26 @@
+services:
+  web:
+    build: .
+    ports:
+      - 8888:80
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_NAME: invoiceplane
+      DB_USER: invoiceuser
+      DB_PASS: securepassword
+
+  db:
+    image: mariadb:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: invoiceplane
+      MYSQL_USER: invoiceuser
+      MYSQL_PASSWORD: securepassword
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
+
